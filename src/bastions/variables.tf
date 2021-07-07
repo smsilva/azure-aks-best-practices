@@ -1,8 +1,15 @@
 variable "bastions" {
   default = {
     aks = {
-      name = "bastion-aks"
-      subnet_id = ""
+      name        = "aks"
+      subnet_name = "AzureBastionSubnet"
     }
+  }
+}
+
+variable "resource_group" {
+  default = {
+    name     = ""
+    location = ""
   }
 }

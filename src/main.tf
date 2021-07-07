@@ -11,8 +11,17 @@ module "network" {
   resource_group = module.resource_group.resource_group
 }
 
+module "bastions" {
+  source         = "./bastions"
+  resource_group = module.resource_group.resource_group
+}
+
 module "report_provision" {
   source = "./report_provision"
+}
+
+output "bastions" {
+  value = module.bastions.list
 }
 
 output "resources_list" {
