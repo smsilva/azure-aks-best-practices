@@ -4,7 +4,7 @@ module "resource_group" {
   location = var.location
 }
 
-module "vnets" {
+module "network" {
   source         = "./vnets"
   vnets          = var.vnets
   location       = var.location
