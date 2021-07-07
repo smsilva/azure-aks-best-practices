@@ -11,17 +11,10 @@ module "network" {
   resource_group = module.resource_group.resource_group
 }
 
-resource "null_resource" "list" {
-
-  triggers = {
-    "execution" = uuid()
-  }
-
-  provisioner "local-exec" {
-    command = "./scripts/list.sh > .terraform-list.txt"
-  }
+module "report_provision" {
+  source = "./report_provision"
 }
 
 output "resources_list" {
-  value = ".terraform-list.txt"
+  value = module.report_provision.file
 }
