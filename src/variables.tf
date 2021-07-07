@@ -21,7 +21,7 @@ variable "vnets" {
     }
     spoke100 = {
       name = "vnet-spoke-100"
-      cidr = "10.100.0.0/16"
+      cidr = "10.100.0.0/14"
       subnets = [
         { cidr = "10.101.0.0/16", name = "snet-aks-101" },
         { cidr = "10.102.0.0/16", name = "snet-aks-102" }
