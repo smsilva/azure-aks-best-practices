@@ -13,3 +13,6 @@ variable "resource_group" {
     location = ""
   }
 }
+
+variable "subnets" {
+}

@@ -13,14 +13,15 @@ module "network" {
 
 module "bastions" {
   source         = "./bastions"
+  subnets        = module.network.subnets
   resource_group = module.resource_group.resource_group
 }
 
 module "virtual_machine" {
   source         = "../modules/virtual-machine"
   name           = "vm-1"
-  subnet_id      = module.subnets["snet-vm-example"].snet.id
-  resource_group = azurerm_resource_group.example
+  subnet_id      = module.network.subnets["snet-aks-101"].instance.id
+  resource_group = module.resource_group.resource_group
 }
 
 module "report_provision" {

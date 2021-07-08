@@ -1,3 +1,3 @@
-output "snet" {
+output "instance" {
   value = azurerm_subnet.default
 }

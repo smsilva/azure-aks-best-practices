@@ -1,5 +1,3 @@
 output "instance" {
-  value = {
-    id = azurerm_linux_virtual_machine.instance.id
-  }
+  value = azurerm_linux_virtual_machine.instance
 }

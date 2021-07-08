@@ -17,7 +17,7 @@ module "bastions" {
   for_each       = local.bastions_map
   source         = "../../modules/bastion"
   name           = each.value.name
-  subnet_id      = each.value.subnet_name
+  subnet_id      = var.subnets[each.value.subnet_name].instance.id
   resource_group = var.resource_group
 }
 
