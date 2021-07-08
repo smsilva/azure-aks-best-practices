@@ -37,6 +37,6 @@ module "subnets" {
 module "virtual_machine" {
   source         = "../../virtual-machine"
   name           = "vm-hub-1"
-  subnet_id      = module.subnets["snet-vm-example"].snet.id
+  subnet_id      = module.subnets["snet-vm-example"].instance.id
   resource_group = azurerm_resource_group.example
 }

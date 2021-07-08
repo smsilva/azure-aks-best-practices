@@ -37,5 +37,5 @@ module "subnets" {
 }
 
 output "instances" {
-  value = module.instance
+  value = module.subnets
 }

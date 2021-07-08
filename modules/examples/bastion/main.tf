@@ -36,10 +36,10 @@ module "subnets" {
 module "bastion_example" {
   source         = "../../bastion"
   name           = "aks"
-  subnet_id      = module.subnets["AzureBastionSubnet"].snet.id
+  subnet_id      = module.subnets["AzureBastionSubnet"].instance.id
   resource_group = azurerm_resource_group.example
 }
 
 output "bastion" {
-  value = module.bastion_example.bastion
+  value = module.bastion_example.instance
 }
