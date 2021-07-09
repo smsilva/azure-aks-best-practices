@@ -1,3 +1,7 @@
+output "instance" {
+  value = azurerm_virtual_network.default
+}
+
 output "vnet" {
   value = {
     id   = azurerm_virtual_network.default.id

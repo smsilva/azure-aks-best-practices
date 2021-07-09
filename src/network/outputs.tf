@@ -13,3 +13,7 @@ output "subnets_map" {
 output "subnets" {
   value = module.subnets
 }
+
+output "instances" {
+  value = module.vnets
+}
