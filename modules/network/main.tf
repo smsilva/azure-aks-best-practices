@@ -32,7 +32,7 @@ locals {
 
 module "vnets" {
   for_each       = local.vnets_map
-  source         = "../../modules/vnet"
+  source         = "../vnet"
   name           = each.value.name
   cidr           = [each.value.cidr]
   resource_group = var.resource_group
@@ -40,7 +40,7 @@ module "vnets" {
 
 module "subnets" {
   for_each       = local.subnets_map
-  source         = "../../modules/subnet"
+  source         = "../subnet"
   name           = each.value.name
   cidrs          = [each.value.cidr]
   vnet           = module.vnets[each.value.vnet.name].vnet

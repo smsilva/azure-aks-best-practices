@@ -2,14 +2,7 @@ provider "azurerm" {
   features {}
 }
 
-locals {
-  vnet = {
-    subnets = {
-      for subnet in [
-        { cidr = "10.0.1.0/29", name = "AzureBastionSubnet" }
-      ] : "${subnet.name}" => subnet
-    }
-  }
+data "azurerm_subscription" "current" {
 }
 
 resource "azurerm_resource_group" "example" {
@@ -17,29 +10,20 @@ resource "azurerm_resource_group" "example" {
   location = "centralus"
 }
 
-module "vnet" {
-  source         = "../../vnet"
-  name           = "vnet-example"
-  cidr           = ["10.0.0.0/20"]
+module "network" {
+  source         = "../../network"
+  vnets          = var.vnets
   resource_group = azurerm_resource_group.example
 }
 
-module "subnets" {
-  for_each       = local.vnet.subnets
-  source         = "../../subnet"
-  name           = each.value.name
-  cidrs          = [each.value.cidr]
-  vnet           = module.vnet
-  resource_group = azurerm_resource_group.example
+module "bastion" {
+  source          = "../../bastion"
+  vnet_name       = "hub0"
+  subscription_id = data.azurerm_subscription.current.subscription_id
+  resource_group  = azurerm_resource_group.example
+  depends_on      = [module.network]
 }
 
-module "bastion_example" {
-  source         = "../../bastion"
-  name           = "aks"
-  subnet_id      = module.subnets["AzureBastionSubnet"].instance.id
-  resource_group = azurerm_resource_group.example
-}
-
-output "bastion" {
-  value = module.bastion_example.instance
+output "example" {
+  value = module.bastion.instance
 }

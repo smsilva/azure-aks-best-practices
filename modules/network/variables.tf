@@ -1,7 +1,3 @@
-variable "bastions" {
-  default = []
-}
-
 variable "resource_group" {
   default = {
     name     = ""
@@ -9,5 +5,6 @@ variable "resource_group" {
   }
 }
 
-variable "subnets" {
+variable "vnets" {
+  default = []
 }

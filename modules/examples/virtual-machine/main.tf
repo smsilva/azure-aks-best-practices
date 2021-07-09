@@ -13,7 +13,7 @@ locals {
   ]
 
   subnets_map = {
-    for subnet in local.subnets : "${subnet.name}" => subnet
+    for subnet in local.subnets : subnet.name => subnet
   }
 }
 

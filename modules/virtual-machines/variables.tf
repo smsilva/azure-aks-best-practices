@@ -1,14 +1,10 @@
-variable "location" {
-  default = "centralus"
-}
+variable "vms" {}
+
+variable "subnets" {}
 
 variable "resource_group" {
   default = {
     name     = ""
     location = ""
   }
-}
-
-variable "vnets" {
-  default = []
 }

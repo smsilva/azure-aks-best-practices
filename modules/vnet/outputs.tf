@@ -10,7 +10,12 @@ output "vnet" {
 }
 
 output "subnets" {
-  value = var.subnets
+  value = {
+    for snet in azurerm_virtual_network.default.subnet : snet.name => {
+      name = snet.name
+      id   = snet.id
+    }
+  }
 }
 
 output "id" {

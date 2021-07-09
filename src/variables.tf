@@ -23,13 +23,17 @@ variable "vnets" {
       name = "vnet-spoke-100"
       cidr = "10.100.0.0/14"
       subnets = [
-        { cidr = "10.101.0.0/16", name = "snet-aks-101" },
-        { cidr = "10.102.0.0/16", name = "snet-aks-102" }
+        { cidr = "10.101.0.0/16", name = "snet-vms-101" },
+        { cidr = "10.102.0.0/16", name = "snet-vms-102" }
       ]
     }
   }
 }
 
-variable "bastions" {
-  default = ["aks"]
+variable "vms" {
+  default = [
+    { name = "vm-101-1", subnet_name = "snet-vms-101" },
+    { name = "vm-101-2", subnet_name = "snet-vms-101" },
+    { name = "vm-102-1", subnet_name = "snet-vms-102" },
+  ]
 }
