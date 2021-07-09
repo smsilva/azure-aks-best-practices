@@ -1,14 +1,9 @@
 variable "name" {
-  default = ""
+  default = "default"
 }
 
-variable "resource_group" {
-  default = {
-    name     = ""
-    location = ""
-  }
-}
+variable "vnet_name" {}
 
-variable "subnet_id" {
-  default = ""
-}
+variable "subscription_id" {}
+
+variable "resource_group" {}

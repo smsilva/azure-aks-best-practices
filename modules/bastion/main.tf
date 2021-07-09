@@ -1,3 +1,7 @@
+locals {
+  subnet_id = "/subscriptions/${var.subscription_id}/resourceGroups/${var.resource_group.name}/providers/Microsoft.Network/virtualNetworks/${var.vnet_name}/subnets/AzureBastionSubnet"
+}
+
 resource "azurerm_public_ip" "default" {
   name                = "public-ip-bastion-${var.name}"
   allocation_method   = "Static"
@@ -13,7 +17,7 @@ resource "azurerm_bastion_host" "default" {
 
   ip_configuration {
     name                 = "configuration"
-    subnet_id            = var.subnet_id
+    subnet_id            = local.subnet_id
     public_ip_address_id = azurerm_public_ip.default.id
   }
 }

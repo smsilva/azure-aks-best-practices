@@ -4,16 +4,18 @@ provider "azurerm" {
 
 locals {
   subnets = [
-    { cidr = "10.0.1.0/29", name = "AzureBastionSubnet" },
-    { cidr = "10.0.2.0/27", name = "snet-vpn-gateway" },
-    { cidr = "10.0.3.0/29", name = "snet-firewall" },
+    { cidr = "10.0.1.0/28", name = "snet-1" },
+    { cidr = "10.0.2.0/28", name = "snet-2" }
   ]
 
   subnets_map = {
-    for subnet in local.subnets : "${subnet.name}" => subnet
+    for subnet in local.subnets : subnet.name => subnet
   }
 
-  bastions = ["aks-example"]
+  vms = [
+    { name = "vm-1", subnet_name = "snet-1" },
+    { name = "vm-2", subnet_name = "snet-2" },
+  ]
 }
 
 resource "azurerm_resource_group" "example" {
@@ -23,7 +25,7 @@ resource "azurerm_resource_group" "example" {
 
 module "vnet" {
   source         = "../../vnet"
-  name           = "vnet-hub-example"
+  name           = "vnet-example"
   cidr           = ["10.0.0.0/20"]
   resource_group = azurerm_resource_group.example
 }
@@ -37,13 +39,14 @@ module "subnets" {
   resource_group = azurerm_resource_group.example
 }
 
-module "bastions" {
-  source         = "../../bastions"
-  bastions       = local.bastions
+module "virtual_machines" {
+  source         = "../../virtual-machines"
+  vms            = local.vms
   subnets        = module.subnets
   resource_group = azurerm_resource_group.example
 }
 
 output "instances" {
-  value = module.bastions.instances
+  value     = module.virtual_machines.instances
+  sensitive = true
 }
