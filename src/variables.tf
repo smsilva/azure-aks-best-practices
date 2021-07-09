@@ -31,10 +31,5 @@ variable "vnets" {
 }
 
 variable "bastions" {
-  default = {
-    aks = {
-      name        = "aks"
-      subnet_name = "AzureBastionSubnet"
-    }
-  }
+  default = ["aks"]
 }

@@ -12,7 +12,8 @@ module "network" {
 }
 
 module "bastions" {
-  source         = "./bastions"
+  source         = "../modules/bastions"
+  bastions       = var.bastions
   subnets        = module.network.subnets
   resource_group = module.resource_group.resource_group
 }
