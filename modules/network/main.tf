@@ -47,16 +47,16 @@ module "subnets" {
   resource_group = var.resource_group
 }
 
-resource "azurerm_virtual_network_peering" "hub0_to_spoke100" {
-  name                      = "hub0_to_spoke100"
-  resource_group_name       = var.resource_group.name
-  virtual_network_name      = module.vnets["hub0"].vnet.name
-  remote_virtual_network_id = module.vnets["spoke100"].vnet.id
-}
-
-resource "azurerm_virtual_network_peering" "spoke100_to_hub0" {
-  name                      = "spoke100_to_hub0"
-  resource_group_name       = var.resource_group.name
-  virtual_network_name      = module.vnets["spoke100"].vnet.name
-  remote_virtual_network_id = module.vnets["hub0"].vnet.id
-}
+//resource "azurerm_virtual_network_peering" "hub0_to_spoke100" {
+//  name                      = "hub0_to_spoke100"
+//  resource_group_name       = var.resource_group.name
+//  virtual_network_name      = module.vnets["hub0"].vnet.name
+//  remote_virtual_network_id = module.vnets["spoke100"].vnet.id
+//}
+//
+//resource "azurerm_virtual_network_peering" "spoke100_to_hub0" {
+//  name                      = "spoke100_to_hub0"
+//  resource_group_name       = var.resource_group.name
+//  virtual_network_name      = module.vnets["spoke100"].vnet.name
+//  remote_virtual_network_id = module.vnets["hub0"].vnet.id
+//}
