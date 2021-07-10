@@ -15,3 +15,10 @@ resource "azurerm_virtual_network_peering" "second" {
   remote_virtual_network_id = var.first.id
   resource_group_name       = var.resource_group.name
 }
+
+output "peerings" {
+  value = {
+    first  = azurerm_virtual_network_peering.first
+    second = azurerm_virtual_network_peering.second
+  }
+}
