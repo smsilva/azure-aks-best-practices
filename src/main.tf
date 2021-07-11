@@ -13,6 +13,13 @@ module "network" {
   resource_group = module.resource_group.instance
 }
 
+module "newtork_peering" {
+  source         = "../modules/network-peering"
+  first          = lookup(module.network.instances, "hub0", null)
+  second         = lookup(module.network.instances, "spoke100", null)
+  resource_group = module.resource_group.instance
+}
+
 module "bastion" {
   source          = "../modules/bastion"
   vnet_name       = "hub0"

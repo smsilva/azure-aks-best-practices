@@ -1,7 +1,3 @@
-variable "first" {}
-variable "second" {}
-variable "resource_group" {}
-
 resource "azurerm_virtual_network_peering" "first" {
   name                      = "${var.first.name}_to_${var.second.name}"
   virtual_network_name      = var.first.name
@@ -14,11 +10,4 @@ resource "azurerm_virtual_network_peering" "second" {
   virtual_network_name      = var.second.name
   remote_virtual_network_id = var.first.id
   resource_group_name       = var.resource_group.name
-}
-
-output "peerings" {
-  value = {
-    first  = azurerm_virtual_network_peering.first
-    second = azurerm_virtual_network_peering.second
-  }
 }

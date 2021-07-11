@@ -22,6 +22,6 @@ module "newtork-peering" {
   resource_group = azurerm_resource_group.example
 }
 
-output "instances" {
+output "peerings" {
   value = module.newtork-peering.peerings
 }
