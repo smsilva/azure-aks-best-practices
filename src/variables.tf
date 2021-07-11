@@ -30,6 +30,12 @@ variable "vnets" {
   }
 }
 
+variable "peerings" {
+  default = [
+    { first = "hub0", second = "spoke100" }
+  ]
+}
+
 variable "vms" {
   default = [
     { name = "vm-101-1", subnet_name = "snet-vms-101" },
