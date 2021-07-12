@@ -2,11 +2,16 @@ locals {
   vnets = flatten([
     for key in keys(var.vnets) : [
       {
-        name = key
+        id   = key
+        name = var.vnets[key].name
         cidr = var.vnets[key].cidr
       }
     ]
   ])
+
+  vnets_map = {
+    for vnet in local.vnets : vnet.id => vnet
+  }
 
   subnets = flatten([
     for key in keys(var.vnets) : [
@@ -20,10 +25,6 @@ locals {
       }
     ]
   ])
-
-  vnets_map = {
-    for vnet in local.vnets : vnet.name => vnet
-  }
 
   subnets_map = {
     for subnet in local.subnets : subnet.name => subnet
