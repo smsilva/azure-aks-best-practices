@@ -1,9 +1,4 @@
-variable "resource_group" {
-  default = {
-    name     = ""
-    location = ""
-  }
-}
+variable "resource_group" {}
 
 variable "vnets" {
   default = []

@@ -19,7 +19,8 @@ locals {
         name = subnet.name
         cidr = subnet.cidr
         vnet = {
-          name = key
+          id   = key
+          name = var.vnets[key].name
           cidr = var.vnets[key].cidr
         }
       }
@@ -44,6 +45,6 @@ module "subnets" {
   source         = "../subnet"
   name           = each.value.name
   cidrs          = [each.value.cidr]
-  vnet           = module.vnets[each.value.vnet.name].vnet
+  vnet           = module.vnets[each.value.vnet.id].instance
   resource_group = var.resource_group
 }
