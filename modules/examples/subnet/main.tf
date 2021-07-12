@@ -32,7 +32,7 @@ module "subnets" {
   source         = "../../subnet"
   name           = each.value.name
   cidrs          = [each.value.cidr]
-  vnet           = module.vnet
+  vnet           = module.vnet.instance
   resource_group = azurerm_resource_group.example
 }
 

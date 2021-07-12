@@ -6,16 +6,6 @@ variable "cidrs" {
   default = []
 }
 
-variable "vnet" {
-  default = {
-    id   = ""
-    name = ""
-  }
-}
+variable "vnet" {}
 
-variable "resource_group" {
-  default = {
-    name     = ""
-    location = ""
-  }
-}
+variable "resource_group" {}
