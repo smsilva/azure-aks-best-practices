@@ -14,9 +14,10 @@ module "network" {
 }
 
 module "newtork_peering" {
+  for_each       = {for peering in var.peerings: "${peering.first}_to_${peering.second}" => peering}
   source         = "../modules/network-peering"
-  first          = lookup(module.network.instances, "hub0", null)
-  second         = lookup(module.network.instances, "spoke100", null)
+  first          = lookup(module.network.instances, each.value.first, null)
+  second         = lookup(module.network.instances, each.value.second, null)
   resource_group = module.resource_group.instance
 }
 
