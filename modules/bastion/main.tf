@@ -3,7 +3,7 @@ locals {
 }
 
 resource "azurerm_public_ip" "default" {
-  name                = "public-ip-bastion-${var.name}"
+  name                = "public-ip-${var.name}"
   allocation_method   = "Static"
   sku                 = "Standard"
   location            = var.resource_group.location

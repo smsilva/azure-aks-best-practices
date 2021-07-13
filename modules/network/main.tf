@@ -28,8 +28,18 @@ locals {
   ])
 
   subnets_map = {
-    for subnet in local.subnets : subnet.name => subnet
+    for subnet in local.subnets : "${subnet.vnet.name}_${subnet.name}" => subnet
   }
+
+  vnet_bastion_list = flatten([
+    for key in keys(var.vnets) : [
+      for subnet in var.vnets[key].subnets : var.vnets[key].name
+      if subnet.name == "AzureBastionSubnet"
+    ]
+  ])
+}
+
+data "azurerm_subscription" "current" {
 }
 
 module "vnets" {
@@ -54,4 +64,14 @@ module "newtork_peerings" {
   vnets          = module.vnets
   peerings       = var.peerings
   resource_group = var.resource_group
+}
+
+module "bastions" {
+  for_each        = module.vnets
+  source          = "../bastion"
+  name            = "bastion-${each.value.instance.name}"
+  vnet_name       = each.value.instance.name
+  subscription_id = data.azurerm_subscription.current.subscription_id
+  resource_group  = var.resource_group
+  depends_on      = [module.vnets, module.subnets]
 }

@@ -21,3 +21,11 @@ output "instances" {
 output "peerings" {
   value = module.newtork_peerings.peerings
 }
+
+output "vnet_bastion_list" {
+  value = local.vnet_bastion_list
+}
+
+output "bastions" {
+  value = module.bastions
+}
