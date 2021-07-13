@@ -18,18 +18,22 @@ module "network" {
   resource_group = azurerm_resource_group.example
 }
 
-//module "virtual_machines" {
-//  source         = "../../virtual-machines"
-//  vms            = var.vms
-//  subnets        = module.network.subnets
-//  resource_group = azurerm_resource_group.example
-//}
-
-output "subnets" {
-  value = module.network.subnets
+module "virtual_machines" {
+  source         = "../../virtual-machines"
+  vms            = var.vms
+  network        = module.network
+  resource_group = azurerm_resource_group.example
 }
 
-//output "instances" {
-//  value     = module.virtual_machines.instances
-//  sensitive = true
+//output "subnets" {
+//  value = module.virtual_machines.subnets
 //}
+//
+//output "vms" {
+//  value = module.virtual_machines.vms
+//}
+
+output "instances" {
+  value     = module.virtual_machines.instances
+  sensitive = true
+}

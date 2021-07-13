@@ -1,3 +1,8 @@
+vms = [
+  { name = "vm-101-1", subnet_name = "snet-101" },
+  { name = "vm-102-1", subnet_name = "snet-102" },
+]
+
 vnets = {
   hub0 = {
     name = "vnet-hub-0"
@@ -19,8 +24,3 @@ vnets = {
 }
 
 peerings = []
-
-vms = [
-  { name = "vm-101-1", subnet_name = "snet-101" },
-  { name = "vm-102-1", subnet_name = "snet-102" },
-]
