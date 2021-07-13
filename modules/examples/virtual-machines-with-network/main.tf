@@ -25,14 +25,6 @@ module "virtual_machines" {
   resource_group = azurerm_resource_group.example
 }
 
-//output "subnets" {
-//  value = module.virtual_machines.subnets
-//}
-//
-//output "vms" {
-//  value = module.virtual_machines.vms
-//}
-
 output "instances" {
   value     = module.virtual_machines.instances
   sensitive = true
