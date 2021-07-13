@@ -26,6 +26,6 @@ output "vnet_bastion_list" {
   value = local.vnet_bastion_list
 }
 
-//output "bastions" {
-//  value = module.bastions
-//}
+output "bastions" {
+  value = module.bastions
+}
