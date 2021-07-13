@@ -17,3 +17,7 @@ output "subnets" {
 output "instances" {
   value = module.vnets
 }
+
+output "peerings" {
+  value = module.newtork_peerings.peerings
+}

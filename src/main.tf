@@ -10,12 +10,6 @@ module "resource_group" {
 module "network" {
   source         = "../modules/network"
   vnets          = var.vnets
-  resource_group = module.resource_group.instance
-}
-
-module "newtork_peerings" {
-  source         = "../modules/network-peerings"
-  vnets          = module.network.instances
   peerings       = var.peerings
   resource_group = module.resource_group.instance
 }
@@ -25,6 +19,7 @@ module "bastion" {
   vnet_name       = "vnet-hub-0"
   subscription_id = data.azurerm_subscription.current.subscription_id
   resource_group  = module.resource_group.instance
+  depends_on      = [module.network]
 }
 
 module "virtual_machines" {
@@ -35,5 +30,6 @@ module "virtual_machines" {
 }
 
 module "report_provision" {
-  source = "../modules/report-provision"
+  source     = "../modules/report-provision"
+  depends_on = [module.virtual_machines]
 }

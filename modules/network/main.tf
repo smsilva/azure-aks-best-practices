@@ -48,3 +48,10 @@ module "subnets" {
   vnet           = module.vnets[each.value.vnet.id].instance
   resource_group = var.resource_group
 }
+
+module "newtork_peerings" {
+  source         = "../network-peerings"
+  vnets          = module.vnets
+  peerings       = var.peerings
+  resource_group = var.resource_group
+}

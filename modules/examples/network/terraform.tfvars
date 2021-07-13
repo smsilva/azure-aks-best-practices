@@ -18,3 +18,7 @@ vnets = {
     ]
   }
 }
+
+peerings = [
+  { first = "hub0", second = "spoke100" }
+]
