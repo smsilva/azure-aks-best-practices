@@ -2,28 +2,33 @@ provider "azurerm" {
   features {}
 }
 
-data "azurerm_subscription" "current" {
-}
-
 resource "azurerm_resource_group" "example" {
   name     = "example"
   location = "centralus"
 }
 
-module "network" {
-  source         = "../../modules/network"
-  vnets          = var.vnets
+module "vnet" {
+  source         = "../../modules/vnet"
+  name           = "vnet-hub-example"
+  cidr           = ["10.0.0.0/20"]
+  resource_group = azurerm_resource_group.example
+}
+
+module "subnet" {
+  source         = "../../modules/subnet"
+  name           = "AzureBastionSubnet"
+  cidrs          = ["10.0.1.0/29"]
+  vnet           = module.vnet.instance
   resource_group = azurerm_resource_group.example
 }
 
 module "bastion" {
-  source          = "../../modules/bastion"
-  vnet_name       = "hub0"
-  subscription_id = data.azurerm_subscription.current.subscription_id
-  resource_group  = azurerm_resource_group.example
-  depends_on      = [module.network]
+  source         = "../../modules/bastion"
+  name           = "hub0"
+  subnet         = module.subnet.instance
+  resource_group = azurerm_resource_group.example
 }
 
-output "example" {
+output "bastion" {
   value = module.bastion.instance
 }
