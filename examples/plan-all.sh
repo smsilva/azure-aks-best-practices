@@ -1,7 +1,14 @@
 #!/bin/bash
 time (
-for EXAMPLE in $(find -maxdepth 1 -type d | sort | sed 1d); do
-  terraform -chdir="${EXAMPLE?}" init
-  terraform -chdir="${EXAMPLE?}" plan
+for DIRECTORY in $(find -maxdepth 1 -type d | sort | sed 1d); do
+  echo "DIRECTORY.: ${DIRECTORY?}"
+  echo ""
+
+  terraform -chdir="${DIRECTORY?}" init
+  terraform -chdir="${DIRECTORY?}" plan
+
+  echo ""
+  echo ""
+  echo ""
 done
 )

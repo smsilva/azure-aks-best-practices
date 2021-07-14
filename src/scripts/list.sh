@@ -42,3 +42,8 @@ for VNET in $(az network vnet list --query '[].name' | jq '.[]' -r); do
 done
 
 echo ""
+
+az vm list \
+  --output table
+
+echo ""
