@@ -65,3 +65,9 @@ module "newtork_peerings" {
   peerings       = var.peerings
   resource_group = var.resource_group
 }
+
+module "bastions" {
+  source         = "../../modules/bastions"
+  subnets        = module.subnets
+  resource_group = var.resource_group
+}

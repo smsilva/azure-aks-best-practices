@@ -14,7 +14,7 @@ module "network" {
 module "virtual_machines" {
   source         = "../modules/virtual-machines"
   vms            = var.vms
-  subnets        = module.network.subnets
+  network        = module.network
   resource_group = module.resource_group.instance
 }
 

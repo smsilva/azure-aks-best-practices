@@ -1,17 +1,15 @@
-variable "network" {}
-variable "resource_group" {}
 
 locals {
   subnets_bastion_list = flatten([
-    for key in keys(var.network.subnets) : [
+    for key in keys(var.subnets) : [
       {
         id              = key
-        vnet_name       = var.network.subnets[key].instance.virtual_network_name
-        subnet_name     = var.network.subnets[key].instance.name
-        subnet_instance = var.network.subnets[key].instance
+        vnet_name       = var.subnets[key].instance.virtual_network_name
+        subnet_name     = var.subnets[key].instance.name
+        subnet_instance = var.subnets[key].instance
       }
     ]
-    if replace(var.network.subnets[key].instance.name, "AzureBastionSubnet", "") != var.network.subnets[key].instance.name
+    if replace(var.subnets[key].instance.name, "AzureBastionSubnet", "") != var.subnets[key].instance.name
   ])
 
   bastion_map = {
@@ -25,12 +23,4 @@ module "bastion" {
   name           = each.value.vnet_name
   subnet         = each.value.subnet_instance
   resource_group = var.resource_group
-}
-
-output "instances" {
-  value = flatten([
-    for key in keys(module.bastion) : [
-      lookup(module.bastion, key, null).instance
-    ]
-  ])
 }
