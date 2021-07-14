@@ -11,7 +11,7 @@ resource "azurerm_resource_group" "example" {
 }
 
 module "network" {
-  source         = "../../network"
+  source         = "../../modules/network"
   vnets          = var.vnets
   peerings       = var.peerings
   resource_group = azurerm_resource_group.example

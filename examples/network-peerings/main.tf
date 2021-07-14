@@ -37,13 +37,13 @@ resource "azurerm_resource_group" "example" {
 }
 
 module "network" {
-  source         = "../../network"
+  source         = "../../modules/network"
   vnets          = var.vnets
   resource_group = azurerm_resource_group.example
 }
 
 module "newtork_peerings" {
-  source         = "../../network-peerings"
+  source         = "../../modules/network-peerings"
   vnets          = module.network.instances
   peerings       = var.peerings
   resource_group = azurerm_resource_group.example

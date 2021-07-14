@@ -43,14 +43,14 @@ resource "azurerm_resource_group" "example" {
 }
 
 module "network" {
-  source         = "../../network"
+  source         = "../../modules/network"
   vnets          = var.vnets
   resource_group = azurerm_resource_group.example
 }
 
 module "newtork_peering" {
   for_each       = local.peerings_map
-  source         = "../../network-peering"
+  source         = "../../modules/network-peering"
   first          = lookup(module.network.instances, each.value.first, null)
   second         = lookup(module.network.instances, each.value.second, null)
   resource_group = azurerm_resource_group.example

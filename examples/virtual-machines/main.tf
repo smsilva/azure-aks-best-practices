@@ -24,7 +24,7 @@ resource "azurerm_resource_group" "example" {
 }
 
 module "vnet" {
-  source         = "../../vnet"
+  source         = "../../modules/vnet"
   name           = "vnet-example"
   cidr           = ["10.0.0.0/20"]
   resource_group = azurerm_resource_group.example
@@ -32,7 +32,7 @@ module "vnet" {
 
 module "subnets" {
   for_each       = local.subnets_map
-  source         = "../../subnet"
+  source         = "../../modules/subnet"
   name           = each.value.name
   cidrs          = [each.value.cidr]
   vnet           = module.vnet
@@ -40,7 +40,7 @@ module "subnets" {
 }
 
 module "virtual_machines" {
-  source         = "../../virtual-machines"
+  source         = "../../modules/virtual-machines"
   vms            = local.vms
   subnets        = module.subnets
   resource_group = azurerm_resource_group.example

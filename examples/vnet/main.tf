@@ -8,7 +8,7 @@ resource "azurerm_resource_group" "example" {
 }
 
 module "vnet_example" {
-  source         = "../../vnet"
+  source         = "../../modules/vnet"
   name           = "vnet-example"
   cidr           = ["10.0.0.0/20"]
   resource_group = azurerm_resource_group.example

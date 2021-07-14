@@ -18,7 +18,7 @@ locals {
 }
 
 module "vnet" {
-  source = "../../vnet"
+  source = "../../modules/vnet"
 
   name           = "vnet-hub-example"
   cidr           = ["10.0.0.0/20"]
@@ -27,7 +27,7 @@ module "vnet" {
 
 module "subnets" {
   for_each       = local.subnets_map
-  source         = "../../subnet"
+  source         = "../../modules/subnet"
   name           = each.value.name
   cidrs          = [each.value.cidr]
   vnet           = module.vnet
@@ -35,7 +35,7 @@ module "subnets" {
 }
 
 module "virtual_machine" {
-  source         = "../../virtual-machine"
+  source         = "../../modules/virtual-machine"
   name           = "vm-hub-1"
   subnet_id      = module.subnets["snet-vm-example"].instance.id
   resource_group = azurerm_resource_group.example

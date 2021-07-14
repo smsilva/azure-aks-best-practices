@@ -11,13 +11,13 @@ resource "azurerm_resource_group" "example" {
 }
 
 module "network" {
-  source         = "../../network"
+  source         = "../../modules/network"
   vnets          = var.vnets
   resource_group = azurerm_resource_group.example
 }
 
 module "bastion" {
-  source          = "../../bastion"
+  source          = "../../modules/bastion"
   vnet_name       = "hub0"
   subscription_id = data.azurerm_subscription.current.subscription_id
   resource_group  = azurerm_resource_group.example

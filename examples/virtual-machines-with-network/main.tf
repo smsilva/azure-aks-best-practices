@@ -4,6 +4,7 @@ provider "azurerm" {
 
 variable "vnets" {}
 variable "peerings" {}
+variable "vms" {}
 
 resource "azurerm_resource_group" "example" {
   name     = "example"
@@ -11,24 +12,20 @@ resource "azurerm_resource_group" "example" {
 }
 
 module "network" {
-  source         = "../../network"
+  source         = "../../modules/network"
   vnets          = var.vnets
   peerings       = var.peerings
   resource_group = azurerm_resource_group.example
 }
 
-output "bastions" {
-  value = module.network.bastions
-}
-
-output "vnet_bastion_list" {
-  value = module.network.vnet_bastion_list
+module "virtual_machines" {
+  source         = "../../modules/virtual-machines"
+  vms            = var.vms
+  network        = module.network
+  resource_group = azurerm_resource_group.example
 }
 
 output "instances" {
-  value = module.network.instances
-}
-
-output "peerings" {
-  value = module.network.peerings
+  value     = module.virtual_machines.instances
+  sensitive = true
 }
