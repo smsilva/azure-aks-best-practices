@@ -19,6 +19,6 @@ module "bastions" {
   resource_group = azurerm_resource_group.example
 }
 
-output "vnet_bastion_list" {
-  value = module.bastions.vnet_bastion_list
+output "instances" {
+  value = module.bastions.instances
 }

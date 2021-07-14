@@ -65,13 +65,3 @@ module "newtork_peerings" {
   peerings       = var.peerings
   resource_group = var.resource_group
 }
-
-module "bastions" {
-  for_each        = module.vnets
-  source          = "../bastion"
-  name            = "bastion-${each.value.instance.name}"
-  vnet_name       = each.value.instance.name
-  subscription_id = data.azurerm_subscription.current.subscription_id
-  resource_group  = var.resource_group
-  depends_on      = [module.vnets, module.subnets]
-}
