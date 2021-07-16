@@ -59,7 +59,3 @@ module "newtork_peering" {
 output "peerings" {
   value = module.newtork_peering
 }
-
-output "network_instances" {
-  value = module.network.instances
-}

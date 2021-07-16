@@ -21,10 +21,6 @@ output "bastions" {
   value = module.network.bastions
 }
 
-output "vnet_bastion_list" {
-  value = module.network.vnet_bastion_list
-}
-
 output "instances" {
   value = module.network.instances
 }
